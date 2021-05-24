@@ -12,6 +12,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.toni.recyclerview2.model.Deporte;
 
 import java.util.ArrayList;
@@ -40,7 +41,8 @@ public class ListaDeportesAdapter extends RecyclerView.Adapter<ListaDeportesAdap
     public void onBindViewHolder(@NonNull DeportesHolder holder, int position) {
         Deporte currentItem = listaDeportes.get(position);
         int idImage = context.getResources().getIdentifier(currentItem.getImagen(), "drawable", context.getPackageName());
-        holder.imgDeporte.setImageResource(idImage);
+        //holder.imgDeporte.setImageResource(idImage);
+        Glide.with(context).load(idImage).into(holder.imgDeporte);
         holder.txtNombreDeporte.setText(currentItem.getNombre());
     }
 

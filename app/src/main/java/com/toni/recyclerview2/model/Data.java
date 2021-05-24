@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Data {
     private static Data instancia;
-    private ArrayList<Deporte> listaDeportes;
+    private static ArrayList<Deporte> listaDeportes;
 
     public static Data getInstance(){
         if(instancia == null){
@@ -26,6 +26,10 @@ public class Data {
         addDeporte(new Deporte(8, "Natación", "La natación es el movimiento y el desplazamiento a través del agua", "img_swimming"));
         addDeporte(new Deporte(9, "Tenis de mesa", "Deporte de raqueta que se disputa entre dos jugadores o parejas", "img_tabletennis"));
         addDeporte(new Deporte(10, "Tenis", "Deporte de raqueta practicado sobre una pista rectangular", "img_tennis"));
+    }
+
+    public static void inicializarDatos(){
+        instancia = null;
     }
 
     public ArrayList<Deporte> getListaDeportes(){
