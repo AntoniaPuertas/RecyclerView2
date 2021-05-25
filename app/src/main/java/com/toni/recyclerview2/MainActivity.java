@@ -10,6 +10,7 @@ import com.toni.recyclerview2.model.Deporte;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -43,14 +44,26 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //número de columnas para el listado
+        int columnas = getResources().getInteger(R.integer.grid_column_count);
+
         listaDeportes = Data.getInstance().getListaDeportes();
         recycler = findViewById(R.id.recycler);
         adapter = new ListaDeportesAdapter(this, listaDeportes);
         recycler.setAdapter(adapter);
-        recycler.setLayoutManager(new LinearLayoutManager(this));
+        //recycler.setLayoutManager(new LinearLayoutManager(this));
+        recycler.setLayoutManager(new GridLayoutManager(this, columnas));
 
+
+        //dependiendo del número de columnas deshabilito el deslizamiento (swipeDirs)
+        int swipeDirs;
+        if(columnas > 1){
+            swipeDirs = 0;
+        }else{
+            swipeDirs = ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT;
+        }
         ItemTouchHelper helper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT |
-                ItemTouchHelper.DOWN | ItemTouchHelper.UP, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+                ItemTouchHelper.DOWN | ItemTouchHelper.UP, swipeDirs) {
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
                 int from = viewHolder.getAdapterPosition();
